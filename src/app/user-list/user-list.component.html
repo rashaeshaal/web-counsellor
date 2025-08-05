@@ -1,0 +1,57 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Users</h4>
+          <button class="btn btn-primary btn-round" (click)="addUser()">Add User</button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th>
+                  Phone Number
+                </th>
+                <th>
+                  Is Admin
+                </th>
+                <th>
+                  Firebase UID
+                </th>
+                <th>
+                  Created At
+                </th>
+                <th class="text-right">
+                  Actions
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of users">
+                  <td>
+                    {{user.phone_number}}
+                  </td>
+                  <td>
+                    {{user.is_admin}}
+                  </td>
+                  <td>
+                    {{user.firebase_uid}}
+                  </td>
+                  <td>
+                    {{user.created_at | date:'short'}}
+                  </td>
+                  <td class="text-right">
+                    <button class="btn btn-round btn-warning btn-icon btn-sm edit" [routerLink]="['/user-profile', user.id]"><i class="now-ui-icons ui-1_settings-gear-63"></i></button>
+                    <button class="btn btn-round btn-danger btn-icon btn-sm remove" (click)="delete(user)"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

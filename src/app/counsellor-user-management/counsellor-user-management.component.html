@@ -1,0 +1,66 @@
+
+<h2>Counsellor User Management</h2>
+
+<h3>Add New Counsellor</h3>
+<div>
+  <label for="newPhoneNumber">Phone Number:</label>
+  <input id="newPhoneNumber" [(ngModel)]="newCounsellor.phone_number" placeholder="+999999999" required>
+
+  <label for="newName">Name:</label>
+        <input id="newName" [(ngModel)]="newCounsellor.profile.name" placeholder="Name" required>
+
+  <label for="newEmail">Email:</label>
+  <input id="newEmail" [(ngModel)]="newCounsellor.email" placeholder="Email" type="email">
+
+  <label for="newQualification">Qualification:</label>
+  <input id="newQualification" [(ngModel)]="newCounsellor.profile.qualification" placeholder="Qualification">
+
+  <button (click)="addCounsellor()">Add Counsellor</button>
+</div>
+
+<h3>Counsellor List</h3>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Phone Number</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Qualification</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let counsellor of counsellors">
+      <td>{{ counsellor.id }}</td>
+      <td>{{ counsellor.phone_number }}</td>
+      <td>{{ counsellor.profile.name }}</td>
+      <td>{{ counsellor.email }}</td>
+      <td>{{ counsellor.profile.qualification }}</td>
+      <td>
+        <button (click)="editCounsellor(counsellor)">Edit</button>
+        <button (click)="deleteCounsellor(counsellor.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="selectedCounsellor">
+  <h3>Edit Counsellor</h3>
+  <div>
+    <label for="editPhoneNumber">Phone Number:</label>
+    <input id="editPhoneNumber" [(ngModel)]="selectedCounsellor.phone_number" placeholder="+999999999" required>
+
+    <label for="editName">Name:</label>
+    <input id="editName" [(ngModel)]="selectedCounsellor.profile.name" placeholder="Name" required>
+
+    <label for="editEmail">Email:</label>
+    <input id="editEmail" [(ngModel)]="selectedCounsellor.email" placeholder="Email" type="email">
+
+    <label for="editQualification">Qualification:</label>
+    <input id="editQualification" [(ngModel)]="selectedCounsellor.profile.qualification" placeholder="Qualification">
+
+    <button (click)="saveCounsellor()">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as Chartist from 'chartist';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,37 +6,37 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public lineBigDashboardChartType;
-  public gradientStroke;
-  public chartColor;
+  public lineBigDashboardChartType: any;
+  public gradientStroke: any;
+  public chartColor: any;
   public canvas : any;
-  public ctx;
-  public gradientFill;
-  public lineBigDashboardChartData:Array<any>;
+  public ctx: any;
+  public gradientFill: any;
+  public lineBigDashboardChartData:Array<any> = [];
   public lineBigDashboardChartOptions:any;
-  public lineBigDashboardChartLabels:Array<any>;
-  public lineBigDashboardChartColors:Array<any>
+  public lineBigDashboardChartLabels:Array<any> = [];
+  public lineBigDashboardChartColors:Array<any> = [];
 
   public gradientChartOptionsConfiguration: any;
   public gradientChartOptionsConfigurationWithNumbersAndGrid: any;
 
-  public lineChartType;
-  public lineChartData:Array<any>;
+  public lineChartType: any;
+  public lineChartData:Array<any> = [];
   public lineChartOptions:any;
-  public lineChartLabels:Array<any>;
-  public lineChartColors:Array<any>
+  public lineChartLabels:Array<any> = [];
+  public lineChartColors:Array<any> = [];
 
-  public lineChartWithNumbersAndGridType;
-  public lineChartWithNumbersAndGridData:Array<any>;
+  public lineChartWithNumbersAndGridType: any;
+  public lineChartWithNumbersAndGridData:Array<any> = [];
   public lineChartWithNumbersAndGridOptions:any;
-  public lineChartWithNumbersAndGridLabels:Array<any>;
-  public lineChartWithNumbersAndGridColors:Array<any>
+  public lineChartWithNumbersAndGridLabels:Array<any> = [];
+  public lineChartWithNumbersAndGridColors:Array<any> = [];
 
-  public lineChartGradientsNumbersType;
-  public lineChartGradientsNumbersData:Array<any>;
+  public lineChartGradientsNumbersType: any;
+  public lineChartGradientsNumbersData:Array<any> = [];
   public lineChartGradientsNumbersOptions:any;
-  public lineChartGradientsNumbersLabels:Array<any>;
-  public lineChartGradientsNumbersColors:Array<any>
+  public lineChartGradientsNumbersLabels:Array<any> = [];
+  public lineChartGradientsNumbersColors:Array<any> = [];
   // events
   public chartClicked(e:any):void {
     console.log(e);
@@ -46,7 +45,7 @@ export class DashboardComponent implements OnInit {
   public chartHovered(e:any):void {
     console.log(e);
   }
-  public hexToRGB(hex, alpha) {
+  public hexToRGB(hex: string, alpha: number) {
     var r = parseInt(hex.slice(1, 3), 16),
       g = parseInt(hex.slice(3, 5), 16),
       b = parseInt(hex.slice(5, 7), 16);
@@ -60,17 +59,6 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.chartColor = "#FFFFFF";
-    this.canvas = document.getElementById("bigDashboardChart");
-    this.ctx = this.canvas.getContext("2d");
-
-    this.gradientStroke = this.ctx.createLinearGradient(500, 0, 100, 0);
-    this.gradientStroke.addColorStop(0, '#80b6f4');
-    this.gradientStroke.addColorStop(1, this.chartColor);
-
-    this.gradientFill = this.ctx.createLinearGradient(0, 200, 0, 50);
-    this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
-    this.gradientFill.addColorStop(1, "rgba(255, 255, 255, 0.24)");
 
     this.lineBigDashboardChartData = [
         {

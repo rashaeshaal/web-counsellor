@@ -10,19 +10,29 @@ import { TypographyComponent } from '../../typography/typography.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
-import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { UserListComponent } from '../../user-list/user-list.component';
+import { CounsellorListComponent } from '../../counsellor-list/counsellor-list.component';
+import { CounsellorDetailComponent } from '../../counsellor-detail/counsellor-detail.component';
+import { AdminLayoutComponent } from './admin-layout.component';
+import { ComponentsModule } from '../../components/components.module';
+import { BaseChartDirective } from 'ng2-charts';
+import { CounsellorUserManagementComponent } from '../../counsellor-user-management/counsellor-user-management.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    ChartsModule,
+    ReactiveFormsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ComponentsModule,
+    RouterModule,
+    BaseChartDirective
   ],
   declarations: [
     DashboardComponent,
@@ -33,6 +43,11 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
     IconsComponent,
     MapsComponent,
     NotificationsComponent,
+    UserListComponent,
+    CounsellorListComponent,
+    CounsellorDetailComponent,
+    CounsellorUserManagementComponent,
+    AdminLayoutComponent
   ]
 })
 

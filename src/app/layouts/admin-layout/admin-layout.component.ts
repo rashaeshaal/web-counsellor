@@ -13,8 +13,8 @@ import PerfectScrollbar from 'perfect-scrollbar';
   styleUrls: ['./admin-layout.component.scss']
 })
 export class AdminLayoutComponent implements OnInit {
-  private _router: Subscription;
-  private lastPoppedUrl: string;
+  private _router: Subscription | undefined;
+  private lastPoppedUrl: string | undefined;
   private yScrollStack: number[] = [];
 
   constructor( public location: Location, private router: Router) {}
@@ -42,7 +42,10 @@ export class AdminLayoutComponent implements OnInit {
          } else if (event instanceof NavigationEnd) {
              if (event.url == this.lastPoppedUrl) {
                  this.lastPoppedUrl = undefined;
-                 window.scrollTo(0, this.yScrollStack.pop());
+                 const scrollY = this.yScrollStack.pop();
+                 if (scrollY !== undefined) {
+                   window.scrollTo(0, scrollY);
+                 }
              } else
                  window.scrollTo(0, 0);
          }
@@ -59,7 +62,7 @@ export class AdminLayoutComponent implements OnInit {
   ngAfterViewInit() {
       this.runOnRouteChange();
   }
-  isMaps(path){
+  isMaps(path: string){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       titlee = titlee.slice( 1 );
       if(path == titlee){

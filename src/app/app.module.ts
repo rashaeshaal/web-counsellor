@@ -12,6 +12,11 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+
+import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
+import { AuthLayoutModule } from './layouts/auth-layout/auth-layout.module';
+
 
 @NgModule({
   imports: [
@@ -22,14 +27,19 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
     RouterModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AdminLayoutModule,
+    AuthLayoutModule,
+    
   ],
   declarations: [
-    AppComponent,
-    AdminLayoutComponent
+    AppComponent
 
   ],
-  providers: [],
+  providers: [
+    
+    provideCharts(withDefaultRegisterables())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

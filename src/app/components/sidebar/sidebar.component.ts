@@ -15,7 +15,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'User Profile',  icon:'users_single-02', class: '' },
     { path: '/table-list', title: 'Table List',  icon:'design_bullet-list-67', class: '' },
     { path: '/typography', title: 'Typography',  icon:'text_caps-small', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'objects_spaceship', class: 'active active-pro' }
+    { path: '/user-list', title: 'User List',  icon:'design_bullet-list-67', class: '' },
+    { path: '/counsellor-user-managementt', title: 'counsellor-management',  icon:'design_bullet-list-67', class: '' },
+
+  
 
 ];
 
@@ -25,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  menuItems: any[];
+  menuItems: any[] = [];
 
   constructor() { }
 

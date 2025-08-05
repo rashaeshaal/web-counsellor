@@ -1,0 +1,62 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full bg-white shadow-2xl rounded-xl p-8">
+    <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-8">Admin Login</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+        <input
+          type="text"
+          id="phone_number"
+          formControlName="phone_number"
+          placeholder="e.g., +1234567890"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition duration-200 ease-in-out"
+          [class.border-red-500]="loginForm.get('phone_number')?.invalid && loginForm.get('phone_number')?.touched"
+        >
+        <div *ngIf="loginForm.get('phone_number')?.invalid && loginForm.get('phone_number')?.touched" class="text-red-600 text-sm mt-1 animate-fade-in">
+          Please enter a valid phone number (9-15 digits, optional +).
+        </div>
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition duration-200 ease-in-out"
+          [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-600 text-sm mt-1 animate-fade-in">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition duration-200 ease-in-out"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        <svg *ngIf="isLoading" class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <div class="text-center mt-6">
+      <p class="text-sm text-gray-600">
+        Don't have an account? <a routerLink="/admin-create" class="font-medium text-blue-600 hover:text-blue-700 transition duration-200 ease-in-out">Register</a>
+      </p>
+    </div>
+
+    <div *ngIf="errorMessage" class="mt-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-lg text-sm animate-fade-in">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="mt-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-lg text-sm animate-fade-in">
+      {{ successMessage }}
+    </div>
+  </div>
+</div>

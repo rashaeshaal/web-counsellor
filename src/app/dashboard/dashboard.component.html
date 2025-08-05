@@ -1,12 +1,12 @@
 <div class="panel-header panel-header-lg">
-    <canvas baseChart id="bigDashboardChart"
-                [datasets]="lineBigDashboardChartData"
-                [labels]="lineBigDashboardChartLabels"
-                 [colors]="lineBigDashboardChartColors"
-                [options]="lineBigDashboardChartOptions"
-                [chartType]="lineBigDashboardChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+    <canvas id="bigDashboardChart" width="400" height="100"
+        baseChart
+        [datasets]="lineBigDashboardChartData"
+        [labels]="lineBigDashboardChartLabels"
+        [options]="lineBigDashboardChartOptions"
+        chartType="line"
+        (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
 </div>
 
 <div class="main-content">
@@ -30,14 +30,12 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas baseChart id="lineChartExample"
+            <canvas id="lineChartExample" 
+                        baseChart
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
-                        [colors]="lineChartColors"
                         [options]="lineChartOptions"
-                        [chartType]="lineChartType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        chartType="line"></canvas>
           </div>
         </div>
         <div class="card-footer">
@@ -66,15 +64,12 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <!-- <canvas id="lineChartExampleWithNumbersAndGrid"></canvas> -->
-            <canvas baseChart id="lineChartExampleWithNumbersAndGrid"
+                                  <canvas id="lineChartExampleWithNumbersAndGrid" 
+                        baseChart
                         [datasets]="lineChartWithNumbersAndGridData"
                         [labels]="lineChartWithNumbersAndGridLabels"
-                        [colors]="lineChartWithNumbersAndGridColors"
                         [options]="lineChartWithNumbersAndGridOptions"
-                        [chartType]="lineChartWithNumbersAndGridType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        chartType="line"></canvas>
           </div>
         </div>
         <div class="card-footer">
@@ -92,14 +87,12 @@
         </div>
         <div class="card-body">
           <div class="chart-area">
-            <canvas baseChart id="barChartSimpleGradientsNumbers"
+            <canvas id="barChartSimpleGradientsNumbers" 
+                        baseChart
                         [datasets]="lineChartGradientsNumbersData"
                         [labels]="lineChartGradientsNumbersLabels"
-                        [colors]="lineChartGradientsNumbersColors"
                         [options]="lineChartGradientsNumbersOptions"
-                        [chartType]="lineChartGradientsNumbersType"
-                        (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        chartType="bar"></canvas>
           </div>
         </div>
         <div class="card-footer">
