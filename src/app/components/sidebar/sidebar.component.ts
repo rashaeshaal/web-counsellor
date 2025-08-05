@@ -16,7 +16,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/table-list', title: 'Table List',  icon:'design_bullet-list-67', class: '' },
     { path: '/typography', title: 'Typography',  icon:'text_caps-small', class: '' },
     { path: '/user-list', title: 'User List',  icon:'design_bullet-list-67', class: '' },
-    { path: '/counsellor-user-managementt', title: 'counsellor-management',  icon:'design_bullet-list-67', class: '' },
+    { path: '/counsellor-user-management', title: 'counsellor-management',  icon:'design_bullet-list-67', class: '' },
 
   
 

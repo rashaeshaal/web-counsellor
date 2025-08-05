@@ -1,6 +1,6 @@
 
 export interface Counsellor {
-  id: number; // Changed to required number
+  id?: number;
   phone_number: string;
   email: string | null;
   profile: {
@@ -19,4 +19,5 @@ export interface Counsellor {
     is_active: boolean;
     profile_photo: string | null;
   };
+  firebase_uid?: string | null;
 }

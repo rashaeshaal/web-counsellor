@@ -9,12 +9,12 @@ import { Counsellor } from '../../counsellor';
   providedIn: 'root'
 })
 export class CounsellorService {
-  private apiUrl = 'http://localhost:8000/api/counsellors';
+  private apiUrl = 'http://localhost:8000/api/admins/';
 
   constructor(private http: HttpClient) { }
 
   getCounsellors(): Observable<Counsellor[]> {
-    return this.http.get<Counsellor[]>(this.apiUrl, {
+    return this.http.get<Counsellor[]>(`${this.apiUrl}users/counsellors/`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
     }).pipe(
       catchError(this.handleError)
@@ -29,16 +29,9 @@ export class CounsellorService {
     );
   }
 
-  addCounsellor(counsellorData: Partial<Counsellor>): Observable<Counsellor> {
-    return this.http.post<Counsellor>(this.apiUrl, counsellorData, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
-    }).pipe(
-      catchError(this.handleError)
-    );
-  }
 
-  updateCounsellor(id: number, counsellorData: Partial<Counsellor>): Observable<Counsellor> {
-    return this.http.patch<Counsellor>(`${this.apiUrl}/${id}/`, counsellorData, {
+  updateCounsellor(id: number, formData: FormData): Observable<Counsellor> {
+    return this.http.patch<Counsellor>(`${this.apiUrl}users/counsellors/${id}/`, formData, {
       headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` }
     }).pipe(
       catchError(this.handleError)

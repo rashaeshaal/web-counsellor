@@ -19,6 +19,7 @@ import { CounsellorDetailComponent } from '../../counsellor-detail/counsellor-de
 import { AdminLayoutComponent } from './admin-layout.component';
 import { ComponentsModule } from '../../components/components.module';
 import { BaseChartDirective } from 'ng2-charts';
+
 import { CounsellorUserManagementComponent } from '../../counsellor-user-management/counsellor-user-management.component';
 
 
@@ -32,7 +33,8 @@ import { CounsellorUserManagementComponent } from '../../counsellor-user-managem
     ToastrModule.forRoot(),
     ComponentsModule,
     RouterModule,
-    BaseChartDirective
+    BaseChartDirective,
+    
   ],
   declarations: [
     DashboardComponent,

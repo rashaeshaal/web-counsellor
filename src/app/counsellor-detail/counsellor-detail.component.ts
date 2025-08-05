@@ -26,12 +26,12 @@ export class CounsellorDetailComponent implements OnInit {
       .subscribe(counsellor => this.counsellor = counsellor);
   }
 
-  updateCounsellor(): void {
-    if (this.counsellor) {
-      this.counsellorService.updateCounsellor(this.counsellor.id, this.counsellor)
-        .subscribe(() => console.log('Counsellor updated successfully'));
-    } else {
-      console.error('Cannot update counsellor: counsellor object is null.');
-    }
-  }
+  // updateCounsellor(): void {
+  //   if (this.counsellor) {
+  //     this.counsellorService.updateCounsellor(this.counsellor.id, this.counsellor)
+  //       .subscribe(() => console.log('Counsellor updated successfully'));
+  //   } else {
+  //     console.error('Cannot update counsellor: counsellor object is null.');
+  //   }
+  // }
 }

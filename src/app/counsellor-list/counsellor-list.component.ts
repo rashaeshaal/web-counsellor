@@ -22,17 +22,18 @@ export class CounsellorListComponent implements OnInit {
   }
 
   delete(counsellor: Counsellor): void {
-  
-    this.counsellorService.deleteCounsellor(counsellor.id).subscribe({
-      next: () => {
-        // On success, remove the counsellor from the local array.
-        this.counsellors = this.counsellors.filter(c => c.id !== counsellor.id);
-      },
-      error: (err) => {
-        console.error('Failed to delete counsellor:', err);
-        // You could add user-facing error handling here, like a toast notification.
-      }
-    });
+    if (counsellor.id !== undefined) {
+      this.counsellorService.deleteCounsellor(counsellor.id).subscribe({
+        next: () => {
+          this.counsellors = this.counsellors.filter(c => c.id !== counsellor.id);
+        },
+        error: (err) => {
+          console.error('Failed to delete counsellor:', err);
+        }
+      });
+    } else {
+      console.error('Counsellor ID is undefined, cannot delete.');
+    }
   }
 
   addCounsellor(): void {

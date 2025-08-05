@@ -1,66 +1,117 @@
-
-<h2>Counsellor User Management</h2>
-
-<h3>Add New Counsellor</h3>
-<div>
-  <label for="newPhoneNumber">Phone Number:</label>
-  <input id="newPhoneNumber" [(ngModel)]="newCounsellor.phone_number" placeholder="+999999999" required>
-
-  <label for="newName">Name:</label>
-        <input id="newName" [(ngModel)]="newCounsellor.profile.name" placeholder="Name" required>
-
-  <label for="newEmail">Email:</label>
-  <input id="newEmail" [(ngModel)]="newCounsellor.email" placeholder="Email" type="email">
-
-  <label for="newQualification">Qualification:</label>
-  <input id="newQualification" [(ngModel)]="newCounsellor.profile.qualification" placeholder="Qualification">
-
-  <button (click)="addCounsellor()">Add Counsellor</button>
+<!-- Header -->
+<div class="header">
+  <h2>Counsellor User Management</h2>
+  <!-- Loading spinner can be added here if needed -->
 </div>
 
-<h3>Counsellor List</h3>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Phone Number</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Qualification</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let counsellor of counsellors">
-      <td>{{ counsellor.id }}</td>
-      <td>{{ counsellor.phone_number }}</td>
-      <td>{{ counsellor.profile.name }}</td>
-      <td>{{ counsellor.email }}</td>
-      <td>{{ counsellor.profile.qualification }}</td>
-      <td>
-        <button (click)="editCounsellor(counsellor)">Edit</button>
-        <button (click)="deleteCounsellor(counsellor.id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- Search & Filter -->
+<div class="search-filter">
+  <input
+    type="text"
+    placeholder="Search by name or email..."
+    [(ngModel)]="search"
+    class="search-input"
+  />
+  <select
+    [(ngModel)]="statusFilter"
+    class="filter-select"
+  >
+    <option value="">All Statuses</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+    <option value="approved">Approved</option>
+    <option value="unapproved">Unapproved</option>
+  </select>
+</div>
 
-<div *ngIf="selectedCounsellor">
-  <h3>Edit Counsellor</h3>
-  <div>
-    <label for="editPhoneNumber">Phone Number:</label>
-    <input id="editPhoneNumber" [(ngModel)]="selectedCounsellor.phone_number" placeholder="+999999999" required>
+<!-- Table -->
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Qualification</th>
+        <th>Status</th>
+        <th>Approved</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let counsellor of filteredCounsellors">
+        <td>{{ counsellor.profile.name }}</td>
+        <td>{{ counsellor.profile.email }}</td>
+        <td>{{ counsellor.profile.phone_number }}</td>
+        <td>{{ counsellor.profile.qualification }}</td>
+        <td>
+          <span [class.active]="counsellor.profile.is_active" [class.inactive]="!counsellor.profile.is_active">
+            {{ counsellor.profile.is_active ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <span [class.approved]="counsellor.profile.is_approved" [class.unapproved]="!counsellor.profile.is_approved">
+            {{ counsellor.profile.is_approved ? 'Approved' : 'Unapproved' }}
+          </span>
+        </td>
+        <td class="actions">
+          <button (click)="editCounsellor(counsellor)" title="Edit">Edit</button>
+          <button *ngIf="counsellor.id !== undefined" (click)="deleteCounsellor(counsellor.id)" title="Delete">Delete</button>
+          <button (click)="toggleApprove(counsellor)" [title]="counsellor.profile.is_approved ? 'Unapprove' : 'Approve'">
+            {{ counsellor.profile.is_approved ? 'Unapprove' : 'Approve' }}
+          </button>
+          <button (click)="toggleActive(counsellor)" [title]="counsellor.profile.is_active ? 'Deactivate' : 'Activate'">
+            {{ counsellor.profile.is_active ? 'Deactivate' : 'Activate' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <label for="editName">Name:</label>
-    <input id="editName" [(ngModel)]="selectedCounsellor.profile.name" placeholder="Name" required>
-
-    <label for="editEmail">Email:</label>
-    <input id="editEmail" [(ngModel)]="selectedCounsellor.email" placeholder="Email" type="email">
-
-    <label for="editQualification">Qualification:</label>
-    <input id="editQualification" [(ngModel)]="selectedCounsellor.profile.qualification" placeholder="Qualification">
-
-    <button (click)="saveCounsellor()">Save</button>
-    <button (click)="cancelEdit()">Cancel</button>
+<!-- Edit Modal -->
+<div *ngIf="selectedCounsellor" class="modal-overlay">
+  <div class="modal">
+    <h3>Edit Counsellor</h3>
+    <form>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="text" [(ngModel)]="selectedCounsellor.profile.phone_number" name="phone_number" />
+      </div>
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="selectedCounsellor.profile.name" name="name" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="selectedCounsellor.profile.email" name="email" />
+      </div>
+      <div class="form-group">
+        <label>Qualification</label>
+        <input type="text" [(ngModel)]="selectedCounsellor.profile.qualification" name="qualification" />
+      </div>
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" [(ngModel)]="selectedCounsellor.profile.age" name="age" min="18" max="100" />
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <select [(ngModel)]="selectedCounsellor.profile.gender" name="gender">
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="O">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Experience (Years)</label>
+        <input type="number" [(ngModel)]="selectedCounsellor.profile.experience" name="experience" min="0" />
+      </div>
+      <div class="modal-actions">
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+        <button type="button" (click)="saveCounsellor()">Save</button>
+      </div>
+    </form>
+    <button class="modal-close" (click)="cancelEdit()">&times;</button>
   </div>
 </div>
+
