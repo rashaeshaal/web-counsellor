@@ -1,0 +1,105 @@
+/* General container styling */
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 20px auto;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form styling */
+.add-problem-form, .edit-problem-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.add-problem-form h3, .edit-problem-form h3 {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.add-problem-form input[type="text"],
+.add-problem-form textarea,
+.edit-problem-form input[type="text"],
+.edit-problem-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Important for padding and width */
+}
+
+.add-problem-form input[type="file"],
+.edit-problem-form input[type="file"] {
+  margin-bottom: 15px;
+}
+
+.add-problem-form img,
+.edit-problem-form img {
+  display: block;
+  margin-top: 10px;
+  max-width: 150px;
+  border-radius: 4px;
+}
+
+/* Button styling */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.edit-problem-form button[type="button"] {
+  background-color: #6c757d;
+}
+
+.edit-problem-form button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+/* Table styling */
+.problem-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.problem-list th, .problem-list td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.problem-list th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.problem-list img {
+  max-width: 80px;
+  border-radius: 4px;
+}
+
+.problem-list .actions button {
+  margin-right: 5px;
+}

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,17 +22,17 @@ export class CounsellorUserManagementComponent implements OnInit {
     return this.counsellors.filter(c => {
       const matchesSearch =
         !this.search ||
-        (c.profile.name && c.profile.name.toLowerCase().includes(this.search.toLowerCase())) ||
-        (c.profile.email && c.profile.email.toLowerCase().includes(this.search.toLowerCase()));
+        (c.name && c.name.toLowerCase().includes(this.search.toLowerCase())) ||
+        (c.email && c.email.toLowerCase().includes(this.search.toLowerCase()));
       let matchesStatus = true;
       if (this.statusFilter === 'active') {
-        matchesStatus = c.profile.is_active;
+        matchesStatus = c.is_active;
       } else if (this.statusFilter === 'inactive') {
-        matchesStatus = !c.profile.is_active;
+        matchesStatus = !c.is_active;
       } else if (this.statusFilter === 'approved') {
-        matchesStatus = c.profile.is_approved;
+        matchesStatus = c.is_approved;
       } else if (this.statusFilter === 'unapproved') {
-        matchesStatus = !c.profile.is_approved;
+        matchesStatus = !c.is_approved;
       }
       return matchesSearch && matchesStatus;
     });
@@ -56,33 +57,29 @@ export class CounsellorUserManagementComponent implements OnInit {
             phone_number: c.phone_number,
             email: c.email,
             firebase_uid: c.firebase_uid,
-            profile: {
-              user_role: c.user_role,
-              phone_number: c.phone_number,
-              name: c.name,
-              email: c.email,
-              age: c.age,
-              gender: c.gender,
-              qualification: c.qualification,
-              experience: c.experience,
-              google_pay_number: c.google_pay_number,
-              account_number: c.account_number,
-              ifsc_code: c.ifsc_code,
-              is_approved: c.is_approved,
-              is_active: c.is_active,
-              profile_photo: c.profile_photo
-            }
+            user_role: c.user_role,
+            name: c.name,
+            age: c.age,
+            gender: c.gender,
+            qualification: c.qualification,
+            experience: c.experience,
+            google_pay_number: c.google_pay_number,
+            account_number: c.account_number,
+            ifsc_code: c.ifsc_code,
+            is_approved: c.is_approved,
+            is_active: c.is_active,
+            profile_photo: c.profile_photo,
+            user_id: c.user_id,
           }));
         },
-        error: (err) => this.toastr.error(err.message)
+        error: (err: HttpErrorResponse) => this.toastr.error(err.message)
       });
   }
 
   editCounsellor(counsellor: Counsellor): void {
     console.log('Edit clicked', counsellor);
     this.selectedCounsellor = { 
-      ...counsellor,
-      profile: { ...counsellor.profile }
+      ...counsellor
     };
     this.selectedFile = null;
     console.log('selectedCounsellor', this.selectedCounsellor);
@@ -102,54 +99,53 @@ export class CounsellorUserManagementComponent implements OnInit {
     }
 
     const counsellor = this.selectedCounsellor;
-    const profile = counsellor.profile;
 
     // Validate required fields
     if (!counsellor.phone_number) {
       this.toastr.error('Phone Number is required.');
       return;
     }
-    if (!profile.name) {
+    if (!counsellor.name) {
       this.toastr.error('Name is required.');
       return;
     }
-    if (!profile.email) {
+    if (!counsellor.email) {
       this.toastr.error('Email is required.');
       return;
     }
-    if (!profile.qualification) {
+    if (!counsellor.qualification) {
       this.toastr.error('Qualification is required.');
       return;
     }
-    if (profile.age === null || profile.age === undefined) {
+    if (counsellor.age === null || counsellor.age === undefined) {
       this.toastr.error('Age is required.');
       return;
     }
-    if (!profile.gender) {
+    if (!counsellor.gender) {
       this.toastr.error('Gender is required.');
       return;
     }
-    if (profile.experience === null || profile.experience === undefined) {
+    if (counsellor.experience === null || counsellor.experience === undefined) {
       this.toastr.error('Experience is required.');
       return;
     }
-    if (!profile.google_pay_number) {
+    if (!counsellor.google_pay_number) {
       this.toastr.error('Google Pay Number is required.');
       return;
     }
-    if (!profile.account_number) {
+    if (!counsellor.account_number) {
       this.toastr.error('Account Number is required.');
       return;
     }
-    if (!profile.ifsc_code) {
+    if (!counsellor.ifsc_code) {
       this.toastr.error('IFSC Code is required.');
       return;
     }
-    if (profile.age < 18 || profile.age > 100) {
+    if (counsellor.age < 18 || counsellor.age > 100) {
       this.toastr.error('Age must be between 18 and 100.');
       return;
     }
-    if (profile.experience < 0) {
+    if (counsellor.experience < 0) {
       this.toastr.error('Experience cannot be negative.');
       return;
     }
@@ -157,17 +153,17 @@ export class CounsellorUserManagementComponent implements OnInit {
     // Create FormData object
     const formData = new FormData();
     formData.append('phone_number', counsellor.phone_number);
-    formData.append('name', profile.name);
-    formData.append('email', profile.email || '');
-    formData.append('qualification', profile.qualification);
-    formData.append('age', profile.age.toString());
-    formData.append('gender', profile.gender);
-    formData.append('experience', profile.experience.toString());
-    formData.append('google_pay_number', profile.google_pay_number);
-    formData.append('account_number', profile.account_number);
-    formData.append('ifsc_code', profile.ifsc_code);
-    formData.append('is_approved', profile.is_approved.toString());
-    formData.append('is_active', profile.is_active.toString());
+    formData.append('name', counsellor.name);
+    formData.append('email', counsellor.email || '');
+    formData.append('qualification', counsellor.qualification);
+    formData.append('age', counsellor.age.toString());
+    formData.append('gender', counsellor.gender);
+    formData.append('experience', counsellor.experience.toString());
+    formData.append('google_pay_number', counsellor.google_pay_number);
+    formData.append('account_number', counsellor.account_number);
+    formData.append('ifsc_code', counsellor.ifsc_code);
+    formData.append('is_approved', counsellor.is_approved.toString());
+    formData.append('is_active', counsellor.is_active.toString());
 
     if (this.selectedFile) {
       formData.append('profile_photo', this.selectedFile, this.selectedFile.name);
@@ -181,35 +177,35 @@ export class CounsellorUserManagementComponent implements OnInit {
           this.selectedFile = null;
           this.toastr.success('Counsellor updated successfully');
         },
-        error: (err) => this.toastr.error(err.message)
+        error: (err: HttpErrorResponse) => this.toastr.error(err.message)
       });
   }
 
   toggleApprove(counsellor: Counsellor): void {
     const formData = new FormData();
-    formData.append('is_approved', (!counsellor.profile.is_approved).toString());
+    formData.append('is_approved', (!counsellor.is_approved).toString());
 
     this.counsellorService.updateCounsellor(counsellor.id!, formData)
       .subscribe({
         next: () => {
-          counsellor.profile.is_approved = !counsellor.profile.is_approved;
-          this.toastr.success(`Counsellor ${counsellor.profile.is_approved ? 'approved' : 'unapproved'} successfully`);
+          counsellor.is_approved = !counsellor.is_approved;
+          this.toastr.success(`Counsellor ${counsellor.is_approved ? 'approved' : 'unapproved'} successfully`);
         },
-        error: (err) => this.toastr.error(err.message)
+        error: (err: HttpErrorResponse) => this.toastr.error(err.message)
       });
   }
 
   toggleActive(counsellor: Counsellor): void {
     const formData = new FormData();
-    formData.append('is_active', (!counsellor.profile.is_active).toString());
+    formData.append('is_active', (!counsellor.is_active).toString());
 
     this.counsellorService.updateCounsellor(counsellor.id!, formData)
       .subscribe({
         next: () => {
-          counsellor.profile.is_active = !counsellor.profile.is_active;
-          this.toastr.success(`Counsellor ${counsellor.profile.is_active ? 'activated' : 'deactivated'} successfully`);
+          counsellor.is_active = !counsellor.is_active;
+          this.toastr.success(`Counsellor ${counsellor.is_active ? 'activated' : 'deactivated'} successfully`);
         },
-        error: (err) => this.toastr.error(err.message)
+        error: (err: HttpErrorResponse) => this.toastr.error(err.message)
       });
   }
 
@@ -223,7 +219,7 @@ export class CounsellorUserManagementComponent implements OnInit {
           }
           this.toastr.success('Counsellor deleted successfully');
         },
-        error: (err) => this.toastr.error(err.message)
+        error: (err: HttpErrorResponse) => this.toastr.error(err.message)
       });
   }
 

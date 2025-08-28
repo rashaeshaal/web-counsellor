@@ -13,7 +13,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'https://counsellor-backend-13.onrender.com';
 
   constructor(private http: HttpClient) {}
 

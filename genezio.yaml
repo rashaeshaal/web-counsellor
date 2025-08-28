@@ -1,5 +1,9 @@
 name: now-ui-dashboard-angular
 region: us-east-1
+backend:
+  path: server
+  lang: ts
+  cloudProvider: genezio
 frontend:
   # Specifies the path of your code.
   path: .

@@ -40,78 +40,31 @@
     </thead>
     <tbody>
       <tr *ngFor="let counsellor of filteredCounsellors">
-        <td>{{ counsellor.profile.name }}</td>
-        <td>{{ counsellor.profile.email }}</td>
-        <td>{{ counsellor.profile.phone_number }}</td>
-        <td>{{ counsellor.profile.qualification }}</td>
+        <td>{{ counsellor.name }}</td>
+        <td>{{ counsellor.email }}</td>
+        <td>{{ counsellor.phone_number }}</td>
+        <td>{{ counsellor.qualification }}</td>
         <td>
-          <span [class.active]="counsellor.profile.is_active" [class.inactive]="!counsellor.profile.is_active">
-            {{ counsellor.profile.is_active ? 'Active' : 'Inactive' }}
+          <span [class.active]="counsellor.is_active" [class.inactive]="!counsellor.is_active">
+            {{ counsellor.is_active ? 'Active' : 'Inactive' }}
           </span>
         </td>
         <td>
-          <span [class.approved]="counsellor.profile.is_approved" [class.unapproved]="!counsellor.profile.is_approved">
-            {{ counsellor.profile.is_approved ? 'Approved' : 'Unapproved' }}
+          <span [class.approved]="counsellor.is_approved" [class.unapproved]="!counsellor.is_approved">
+            {{ counsellor.is_approved ? 'Approved' : 'Unapproved' }}
           </span>
         </td>
         <td class="actions">
-          <button (click)="editCounsellor(counsellor)" title="Edit">Edit</button>
+
           <button *ngIf="counsellor.id !== undefined" (click)="deleteCounsellor(counsellor.id)" title="Delete">Delete</button>
-          <button (click)="toggleApprove(counsellor)" [title]="counsellor.profile.is_approved ? 'Unapprove' : 'Approve'">
-            {{ counsellor.profile.is_approved ? 'Unapprove' : 'Approve' }}
+          <button (click)="toggleApprove(counsellor)" [title]="counsellor.is_approved ? 'Unapprove' : 'Approve'">
+            {{ counsellor.is_approved ? 'Unapprove' : 'Approve' }}
           </button>
-          <button (click)="toggleActive(counsellor)" [title]="counsellor.profile.is_active ? 'Deactivate' : 'Activate'">
-            {{ counsellor.profile.is_active ? 'Deactivate' : 'Activate' }}
+          <button (click)="toggleActive(counsellor)" [title]="counsellor.is_active ? 'Deactivate' : 'Activate'">
+            {{ counsellor.is_active ? 'Deactivate' : 'Activate' }}
           </button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
-
-<!-- Edit Modal -->
-<div *ngIf="selectedCounsellor" class="modal-overlay">
-  <div class="modal">
-    <h3>Edit Counsellor</h3>
-    <form>
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="text" [(ngModel)]="selectedCounsellor.profile.phone_number" name="phone_number" />
-      </div>
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="selectedCounsellor.profile.name" name="name" />
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="selectedCounsellor.profile.email" name="email" />
-      </div>
-      <div class="form-group">
-        <label>Qualification</label>
-        <input type="text" [(ngModel)]="selectedCounsellor.profile.qualification" name="qualification" />
-      </div>
-      <div class="form-group">
-        <label>Age</label>
-        <input type="number" [(ngModel)]="selectedCounsellor.profile.age" name="age" min="18" max="100" />
-      </div>
-      <div class="form-group">
-        <label>Gender</label>
-        <select [(ngModel)]="selectedCounsellor.profile.gender" name="gender">
-          <option value="M">Male</option>
-          <option value="F">Female</option>
-          <option value="O">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Experience (Years)</label>
-        <input type="number" [(ngModel)]="selectedCounsellor.profile.experience" name="experience" min="0" />
-      </div>
-      <div class="modal-actions">
-        <button type="button" (click)="cancelEdit()">Cancel</button>
-        <button type="button" (click)="saveCounsellor()">Save</button>
-      </div>
-    </form>
-    <button class="modal-close" (click)="cancelEdit()">&times;</button>
-  </div>
-</div>
-

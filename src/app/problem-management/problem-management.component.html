@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Problem Management</h2>
+
+  <!-- Add New Problem Form -->
+  <div class="add-problem-form">
+    <h3>Add New Problem</h3>
+    <input type="text" [(ngModel)]="newProblem.title" placeholder="Problem Title" />
+    <textarea [(ngModel)]="newProblem.description" placeholder="Problem Description"></textarea>
+    <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+    <img *ngIf="newProblemImagePreview" [src]="newProblemImagePreview" alt="New Problem Preview" style="max-width: 100px;" />
+    <button (click)="addProblems()">Add Problem</button>
+  </div>
+
+  <!-- Problem List -->
+  <div class="problem-list">
+    <h3>Existing Problems</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let problem of problems">
+          <td>{{ problem.id }}</td>
+          <td>{{ problem.title }}</td>
+          <td>{{ problem.description }}</td>
+          <td>
+            <img *ngIf="problem.image" [src]="problem.image" [alt]="problem.title" style="max-width: 100px;" />
+            <span *ngIf="!problem.image">No image</span>
+          </td>
+          <td>
+            <button (click)="editProblem(problem)">Edit</button>
+            <button (click)="deleteProblem(problem.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Edit Problem Form -->
+  <div *ngIf="selectedProblem" class="edit-problem-form">
+    <h3>Edit Problem</h3>
+    <input type="text" [(ngModel)]="selectedProblem.title" placeholder="Problem Title" />
+    <textarea [(ngModel)]="selectedProblem.description" placeholder="Problem Description"></textarea>
+    <input type="file" (change)="onEditImageSelected($event)" accept="image/*" />
+    <img *ngIf="selectedProblemImagePreview" [src]="selectedProblemImagePreview" alt="Edit Problem Preview" style="max-width: 100px;" />
+    <button *ngIf="selectedProblem.image || selectedProblemImagePreview" (click)="clearEditImage()">Clear Image</button>
+    <button (click)="updateProblem()">Save</button>
+    <button (click)="cancelEdit()">Cancel</button>
+  </div>
+</div>

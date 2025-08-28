@@ -1,0 +1,35 @@
+<div class="container mx-auto p-4">
+  <h2 class="text-2xl font-bold mb-4">Booking and Payment Details</h2>
+  <table class="min-w-full bg-white border">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border">Order ID</th>
+        <th class="py-2 px-4 border">User</th>
+        <th class="py-2 px-4 border">Counsellor</th>
+        <th class="py-2 px-4 border">Amount</th>
+        <th class="py-2 px-4 border">Status</th>
+        <th class="py-2 px-4 border">Payment ID</th>
+        <th class="py-2 px-4 border">Created At</th>
+        <th class="py-2 px-4 border">Call Requests</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+        <td class="py-2 px-4 border">{{ booking.order_id }}</td>
+        <td class="py-2 px-4 border">{{ booking.user.username }} ({{ booking.user.email }})</td>
+        <td class="py-2 px-4 border">{{ booking.counsellor.name }}</td>
+        <td class="py-2 px-4 border">{{ booking.amount | currency:'INR' }}</td>
+        <td class="py-2 px-4 border">{{ booking.status }}</td>
+        <td class="py-2 px-4 border">{{ booking.razorpay_payment_id || 'N/A' }}</td>
+        <td class="py-2 px-4 border">{{ booking.created_at | date:'medium' }}</td>
+        <td class="py-2 px-4 border">
+          <ul>
+            <li *ngFor="let call of booking.call_requests">
+              {{ call.status }} (Requested: {{ call.requested_at | date:'medium' }})
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

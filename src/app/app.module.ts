@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { ProblemManagementComponent } from './problem-management/problem-management.component';
+import { CommonModule } from '@angular/common'; // Added CommonModule
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
@@ -30,11 +32,12 @@ import { AuthLayoutModule } from './layouts/auth-layout/auth-layout.module';
     ToastrModule.forRoot(),
     AdminLayoutModule,
     AuthLayoutModule,
+    CommonModule, // Added CommonModule
     
   ],
   declarations: [
-    AppComponent
-
+    AppComponent,
+    ProblemManagementComponent
   ],
   providers: [
     

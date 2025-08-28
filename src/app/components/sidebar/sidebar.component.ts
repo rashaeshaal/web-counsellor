@@ -8,15 +8,14 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'design_app', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'education_atom', class: '' },
-    { path: '/maps', title: 'Maps',  icon:'location_map-big', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'ui-1_bell-53', class: '' },
+    { path: '/user-list', title: 'User List',  icon:'users_circle-08', class: '' },
+    { path: '/counsellor-user-management', title: 'counsellor-management',  icon:'users_circle-08', class: '' },
+    { path: 'booking-payment-details', title: 'booking-payment-details',  icon:'files_paper', class: '' },
+    { path: 'call-details', title: 'call-details',  icon:'ui-2_chat-round', class: '' },
+    { path: 'payout-admin', title: 'payout-admin', icon: 'design_app', class: ''},
+    { path: 'payment-settings', title: 'payment-settings', icon: 'ui-1_settings-gear-63', class: ''},
+    { path: 'problem-selection', title: 'problem-selection', icon: 'ui-1_settings-gear-63', class: ''}
 
-    { path: '/user-profile', title: 'User Profile',  icon:'users_single-02', class: '' },
-    { path: '/table-list', title: 'Table List',  icon:'design_bullet-list-67', class: '' },
-    { path: '/typography', title: 'Typography',  icon:'text_caps-small', class: '' },
-    { path: '/user-list', title: 'User List',  icon:'design_bullet-list-67', class: '' },
-    { path: '/counsellor-user-management', title: 'counsellor-management',  icon:'design_bullet-list-67', class: '' },
 
   
 

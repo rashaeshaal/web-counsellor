@@ -1,0 +1,24 @@
+<div class="container">
+  <h2>Initiate Payout</h2>
+  <div class="message" [class.error]="isError">{{ message }}</div>
+  <form>
+    <div class="form-group">
+      <label for="counsellor">Select Counsellor:</label>
+      <select id="counsellor" [(ngModel)]="selectedCounsellorId" name="counsellor">
+        <option value="" disabled>Select a counsellor</option>
+        <option *ngFor="let counsellor of counsellors" [value]="counsellor.user_id">
+          {{ counsellor.name }} (ID: {{ counsellor.id }})
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount (₹):</label>
+      <input type="number" id="amount" [(ngModel)]="amount" name="amount" placeholder="Enter amount">
+    </div>
+    <div class="form-group">
+      <label for="notes">Notes:</label>
+      <textarea id="notes" [(ngModel)]="notes" name="notes" placeholder="Enter notes (optional)"></textarea>
+    </div>
+    <button type="button" (click)="initiatePayout()">Initiate Payout</button>
+  </form>
+</div>

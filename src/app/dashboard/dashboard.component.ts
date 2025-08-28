@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CounsellorService } from '../register/services/counsellor.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +39,9 @@ export class DashboardComponent implements OnInit {
   public lineChartGradientsNumbersOptions:any;
   public lineChartGradientsNumbersLabels:Array<any> = [];
   public lineChartGradientsNumbersColors:Array<any> = [];
+
+  public bookingDetails: any[] = [];
+  public callDetails: any[] = [];
   // events
   public chartClicked(e:any):void {
     console.log(e);
@@ -56,9 +61,28 @@ export class DashboardComponent implements OnInit {
       return "rgb(" + r + ", " + g + ", " + b + ")";
     }
   }
-  constructor() { }
+  constructor(private counsellorService: CounsellorService) { }
 
   ngOnInit() {
+    this.counsellorService.getBookingDetails().subscribe({
+      next: (response) => {
+        this.bookingDetails = response.data;
+        console.log('Booking Details:', this.bookingDetails);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching booking details:', error);
+      }
+    });
+
+    this.counsellorService.getCallDetails().subscribe({
+      next: (response) => {
+        this.callDetails = response.data;
+        console.log('Call Details:', this.callDetails);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching call details:', error);
+      }
+    });
 
     this.lineBigDashboardChartData = [
         {
